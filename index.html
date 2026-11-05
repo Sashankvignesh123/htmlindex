@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Commands Cheat Sheet</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6fb;
+            color: #222;
+        }
+
+        header {
+            background: #24292f;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .search {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #e44d26;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .command {
+            background: #24292f;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        button {
+            background: #e44d26;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #c43b1d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #24292f;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Git & GitHub Commands</h1>
+        <p>Your Complete Git Commands Cheat Sheet</p>
+    </header>
+
+    <div class="container">
+
+        <input type="text" class="search"
+            id="search" placeholder="Search Git commands..."
+            onkeyup="searchCommands()">
+
+        <div class="commands" id="commands">
+
+            <div class="card">
+                <h2>1. Basic Commands</h2>
+
+                <div class="command">git --version</div>
+                <div class="command">git init</div>
+                <div class="command">git status</div>
+                <div class="command">git log</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>2. Git Configuration</h2>
+
+                <div class="command">git config --global user.name "Your Name"</div>
+                <div class="command">git config --global user.email "email@gmail.com"</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>3. Add & Commit</h2>
+
+                <div class="command">git add .</div>
+                <div class="command">git add filename</div>
+                <div class="command">git commit -m "Initial commit"</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>4. GitHub Push</h2>
+
+                <div class="command">git remote add origin URL</div>
+                <div class="command">git branch -M main</div>
+                <div class="command">git push -u origin main</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>5. Pull & Clone</h2>
+
+                <div class="command">git clone repository_URL</div>
+                <div class="command">git pull origin main</div>
+                <div class="command">git fetch</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>6. Branch Commands</h2>
+
+                <div class="command">git branch</div>
+                <div class="command">git branch new-branch</div>
+                <div class="command">git switch -c new-branch</div>
+                <div class="command">git merge branch-name</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>7. Undo Commands</h2>
+
+                <div class="command">git restore filename</div>
+                <div class="command">git reset filename</div>
+                <div class="command">git revert HEAD</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+            <div class="card">
+                <h2>8. Stash Commands</h2>
+
+                <div class="command">git stash</div>
+                <div class="command">git stash pop</div>
+                <div class="command">git stash list</div>
+                <button onclick="copyCommands(this)">Copy Commands</button>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Git Commands Cheat Sheet | Learn Git & GitHub</p>
+    </footer>
+
+    <script>
+        function copyCommands(button) {
+            let card = button.parentElement;
+            let commands = card.querySelectorAll(".command");
+
+            let text = Array.from(commands)
+                .map(command => command.innerText)
+                .join("\n");
+
+            navigator.clipboard.writeText(text);
+
+            button.innerText = "Copied!";
+
+            setTimeout(() => {
+                button.innerText = "Copy Commands";
+            }, 1500);
+        }
+
+        function searchCommands() {
+            let input = document.getElementById("search")
+                .value.toLowerCase();
+
+            let cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                card.style.display =
+                    card.innerText.toLowerCase().includes(input)
+                    ? "block" : "none";
+            });
+        }
+    </script>
+
+</body>
+</html>
